@@ -22,17 +22,19 @@ from selenium.common.exceptions import TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 
 BASE_URL = "https://cyberfly.maisolt.com.br"
-OLT_IDS  = [i for i in range(1, 16) if i not in (7, 10, 14)]
+OLT_IDS  = [i for i in range(1, 19) if i not in (7, 10, 14)]
 
 STATUS_MAP = {
-    "online":      "ONUs Online",
-    "loss":        "ONUs LOSS",
-    "sem energia": "ONUs Sem Energia",
     "inativo":     "ONUs Inativo",
+    "online":      "ONUs Online",
+    "sem energia": "ONUs Sem Energia",
+    "loss":        "ONUs LOSS",
+
+
 }
 
-COLUMNS = ["ID", "Nome da OLT", "ONUs Total", "ONUs Online",
-           "ONUs LOSS", "ONUs Sem Energia", "ONUs Inativo"]
+COLUMNS = ["ID", "", "", "ONUs Inativo",
+           "ONUs Online", "ONUs Sem Energia", "ONUs LOSS"]
 
 
 def criar_driver():
@@ -222,10 +224,10 @@ def main():
             if data:
                 records.append(data)
                 print(f"✓  {data['Nome da OLT']}  "
-                      f"[Online={data['ONUs Online']} | "
-                      f"LOSS={data['ONUs LOSS']} | "
+                      f"[Inativo={data['ONUs Inativo']} | "
+                      f"Online={data['ONUs Online']} | "
                       f"SE={data['ONUs Sem Energia']} | "
-                      f"Inativo={data['ONUs Inativo']}]")
+                      f"LOSS={data['ONUs LOSS']}]")
             else:
                 print("— ignorado")
 
